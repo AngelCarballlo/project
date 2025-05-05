@@ -14,7 +14,7 @@ services:
       XDEBUG_CLIENT_PORT: 9003
       PHP_IDE_CONFIG: serverName=symfony-server
     ports:
-      - '1000:80'
+      - '80:80'
     networks:
       - symfony-app-network
     depends_on:
@@ -24,7 +24,7 @@ services:
     container_name: symfony-app-mysql
     image: mysql:8.2.0
     ports:
-      - '3336:3306'
+      - '3306:3306'
     environment:
       MYSQL_DATABASE: symfony-app
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

@@ -3,5 +3,4 @@
 docker-compose.yml.dist
 Makefile
 README.md
-/docker
 .env
