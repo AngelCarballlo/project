@@ -4,3 +4,4 @@ docker-compose.yml.dist
 Makefile
 README.md
 .env
+composer.lock
