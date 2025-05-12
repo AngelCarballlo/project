@@ -20,7 +20,10 @@ RUN apt update \
     # XDEBUG and APCu
     && pecl install xdebug apcu \
     # enable Docker extensions
-    && docker-php-ext-enable --ini-name 05-opcache.ini opcache xdebug apcu
+    && docker-php-ext-enable --ini-name 05-opcache.ini opcache xdebug apcu \
+    && apt install -y curl gnupg && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt install -y nodejs
 
 # Install and update composer
 RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer

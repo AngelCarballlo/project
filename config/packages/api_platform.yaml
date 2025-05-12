@@ -1,0 +1,12 @@
+api_platform:
+    title: 'Imos? Event API REST Documentation'
+    description: 'Imos? is a web application that allows users to manage events.'
+    version: '0.0.1'
+    mapping:
+        paths: [
+            '%kernel.project_dir%/src/Event/Infrastructure/ApiPlatform/DTO'
+        ]
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
