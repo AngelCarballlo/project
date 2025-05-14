@@ -6,13 +6,19 @@ namespace App\Event\Infrastructure\Repository;
 
 use App\Event\Domain\Event;
 use App\Event\Domain\EventRepositoryInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 class EventRepository implements EventRepositoryInterface
 {
-    public function createEvent(Event $event): JsonResponse
+    public function __construct(
+        private EntityManagerInterface $entityManager
+    ) {}
+
+
+    public function createEvent(Event $event): void
     {
-        return new JsonResponse('ok');
+        $this->entityManager->persist($event);
+        $this->entityManager->flush();
     }
 }

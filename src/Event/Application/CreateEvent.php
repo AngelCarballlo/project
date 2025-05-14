@@ -35,6 +35,5 @@ class CreateEvent
         }
 
         return new JsonResponse("ok");
-        // return $this->eventRepository->createEvent($event);
     }
 }

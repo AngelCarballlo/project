@@ -3,40 +3,45 @@
 declare(strict_types=1);
 
 namespace App\Event\Domain;
+
+use App\Event\Infrastructure\Repository\DoctrineEventRepository;
+use DateTime;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: DoctrineEventRepository::class)]
+
 class Event
 {
-    private ?int $id = null;
-    private string $title;
-    private string $description;
-    private string $location;
-    private \DateTimeImmutable $dateTime;
-    private ?int $maxAttendees;
-    private string $categoryId;
-    private string $organizerId;
-    private \DateTimeImmutable $createdAt;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private int $id;
 
     public function __construct(
-        string $title,
-        string $description,
-        string $location,
-        \DateTimeImmutable $dateTime,
-        ?int $maxAttendees,
-        string $categoryId,
-        string $organizerId
-    ) {
-        $this->title = $title;
-        $this->description = $description;
-        $this->location = $location;
-        $this->dateTime = $dateTime;
-        $this->maxAttendees = $maxAttendees;
-        $this->categoryId = $categoryId;
-        $this->organizerId = $organizerId;
-        $this->createdAt = new \DateTimeImmutable();
-    }
+        #[ORM\Column(type: 'string', length: 255)]
+        private string $title,
 
-    public function getId(): ?int
-    {
-        return $this->id;
+        #[ORM\Column(type: 'string', length: 1000)]
+        private string $description,
+
+        #[ORM\Column(type: 'string', length: 255)]
+        private string $location,
+
+        #[ORM\Column(type: 'datetime')]
+        private DateTime $dateTime,
+
+        #[ORM\Column(type: 'integer')]
+        private int $maxAttendees,
+
+        #[ORM\Column(type: 'string', length: 255)]
+        private string $categoryId,
+
+        #[ORM\Column(type: 'string', length: 255)]
+        private string $organizerId,
+
+        #[ORM\Column(type: 'datetime')]
+        private DateTime $createdAt = new DateTime()
+    ) {
     }
 
     public function getTitle(): string
@@ -54,7 +59,7 @@ class Event
         return $this->location;
     }
 
-    public function getDateTime(): \DateTimeImmutable
+    public function getDateTime(): DateTime
     {
         return $this->dateTime;
     }
@@ -74,9 +79,14 @@ class Event
         return $this->organizerId;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }
 
