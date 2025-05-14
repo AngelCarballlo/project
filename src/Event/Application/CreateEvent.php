@@ -6,11 +6,10 @@ namespace App\Event\Application;
 
 use App\Event\Domain\Event;
 use App\Event\Domain\EventRepositoryInterface;
+use DateTime;
 use DomainException;
 use Exception;
-use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Notifier\Chatter;
 
 class CreateEvent
 {
@@ -25,13 +24,14 @@ class CreateEvent
                 $data['title'],
                 $data['description'],
                 $data['location'],
-                $data['dateTime'],
+                new DateTime($data['dateTime']),
                 $data['maxAttendees'],
                 $data['categoryId'],
                 $data['organizerId']
             );
+            $this->eventRepository->createEvent($event);
         } catch (Exception $e) {
-            throw new DomainException("Request body missing parameters.");
+            throw new DomainException("Request body missing parameters. Message:" . $e);
         }
 
         return new JsonResponse("ok");
